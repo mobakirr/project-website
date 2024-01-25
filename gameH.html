@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            border: 5px solid red;
+            box-sizing: border-box;
+        }
+        #result {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="play('steen')">Steen</button>
+        <button onclick="play('papier')">Papier</button>
+        <button onclick="play('schaar')">Schaar</button>
+        <br>
+        <center><button onclick="alert('Kies steen, papier of schaar. Als je wint, krijg je een punt. Als de computer wint, krijgt de computer een punt. Het spel gaat door totdat jij of de computer 3 punten heeft bereikt.')">Hoe werkt het spel?</button><br>
+        <button onclick="goToHomePage()">Terug naar beginpagina</button></center>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        var choices = ['steen', 'papier', 'schaar'];
+        var userScore = 0, computerScore = 0;
+
+        function play(userChoice) {
+            var computerChoice = choices[Math.floor(Math.random() * 3)];
+            var result = '';
+
+            if (userChoice === computerChoice) {
+                result = 'Gelijkspel!';
+            } else if (
+                (userChoice === 'steen' && computerChoice === 'schaar') ||
+                (userChoice === 'papier' && computerChoice === 'steen') ||
+                (userChoice === 'schaar' && computerChoice === 'papier')
+            ) {
+                userScore++;
+                result = 'Je wint!';
+            } else {
+                computerScore++;
+                result = 'Je verliest!';
+            }
+
+            result += ' (Speler: ' + userScore + ', Computer: ' + computerScore + ')';
+
+            if (userScore === 3) {
+                result += ' Je hebt gewonnen!';
+                userScore = computerScore = 0;
+            } else if (computerScore === 3) {
+                result += ' De computer heeft gewonnen!';
+                userScore = computerScore = 0;
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+
+        function goToHomePage() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

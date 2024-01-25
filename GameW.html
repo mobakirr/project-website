@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 op een rij</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ecf0f1;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(7, 50px);
+            gap: 5px;
+            background-color: #3498db;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .cell {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: #ecf0f1;
+            border-radius: 50%;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .coin {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            position: absolute;
+            bottom: 0;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .empty {
+            border: 2px solid #ecf0f1;
+        }
+
+        .player1 {
+            background-color: #e74c3c;
+        }
+
+        .player2 {
+            background-color: #2ecc71;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #instructions {
+            display: none;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div id="board"></div>
+<button onclick="showInstructions()">Hoe werkt het spel?</button>
+<button onclick="location.href='index.html'">Terug naar index</button>
+
+<div id="instructions">
+    <h2>Spelregels</h2>
+    <p>Het doel van het spel is om vier van jouw munten horizontaal, verticaal of diagonaal te plaatsen voordat je tegenstander dat doet. Klik op een kolom om een munt erin te laten vallen. Munten vallen naar beneden en bezetten het laagst mogelijke beschikbare vak.</p>
+    <button onclick="hideInstructions()">Sluit</button>
+</div>
+
+<script>
+    const rows = 6;
+    const cols = 7;
+    let currentPlayer = 1; // 1 for Player 1, 2 for Player 2
+    let board = createEmptyBoard();
+
+    function createEmptyBoard() {
+        return Array.from({length: rows}, () => Array(cols).fill(0));
+    }
+
+    function renderBoard() {
+        const boardContainer = document.getElementById("board");
+        boardContainer.innerHTML = "";
+
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell", "empty");
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                cell.addEventListener("click", handleCellClick);
+                boardContainer.appendChild(cell);
+            }
+        }
+    }
+
+    function handleCellClick(event) {
+        const clickedCol = parseInt(event.target.dataset.col);
+
+        for (let row = rows - 1; row >= 0; row--) {
+            if (board[row][clickedCol] === 0) {
+                // If the clicked cell is empty, update the board and switch players
+                board[row][clickedCol] = currentPlayer;
+                dropCoin(row, clickedCol);
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+
+                // Check for a winner after each move
+                if (checkForWinner()) {
+                    alert(`Player ${currentPlayer === 1 ? 2 : 1} wins!`);
+                    resetGame();
+                }
+                break;
+            }
+        }
+    }
+
+    function dropCoin(row, col) {
+        const coin = document.createElement("div");
+        coin.classList.add("coin", `player${currentPlayer}`);
+        document.querySelector(`[data-row="${row}"][data-col="${col}"]`).appendChild(coin);
+
+        // Trigger reflow to enable the transition
+        void coin.offsetWidth;
+
+        // Animate the coin falling
+        coin.style.transform = `translateY(${rows - 1 - row}00%)`;
+
+        // Update the cell class
+        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+        cell.classList.remove("empty");
+        cell.classList.add(`player${currentPlayer}`);
+    }
+
+    function checkForWinner() {
+        // ... (Same as in the previous example)
+        // Check horizontally, vertically, and diagonally for a winner
+    }
+
+    function resetGame() {
+        currentPlayer = 1;
+        board = createEmptyBoard();
+        renderBoard();
+    }
+
+    function showInstructions() {
+        document.getElementById("instructions").style.display = "block";
+    }
+
+    function hideInstructions() {
+        document.getElementById("instructions").style.display = "none";
+    }
+
+    // Initial rendering
+    renderBoard();
+</script>
+
+</body>
+</html>

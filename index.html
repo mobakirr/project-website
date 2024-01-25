@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indexpagina</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+			background-image: url(./img/back.jpg);
+			background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+        }
+
+        header {
+            padding: 15px;
+            text-align: center;
+			color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            
+            padding: 10px;
+        }
+		    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: white;
+        border: 2px solid black;
+        color: black;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        nav a:hover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welkom op de website Van Houdaiga & Wassim<Br></h1>
+    </header>
+
+    <nav>
+        <a href="ons.html">Wie zijn wij</a>
+        <a href="kies1.html">Game</a>
+        <a href="kies2.html">Goeden doelen</a>
+		<a href="kies3.html">Portfolio</a>
+    </nav>
+
+    <body>
+	<img src="img/fotoschool.jpg" width="400">
+	<center><h3> Foto van onze school<br><br><br>Techniek College Rotterdam, opgericht in 2016 als een samenwerkingsschool tussen Albeda en Zadkine, is dé plek voor toonaangevend en innovatief technisch onderwijs in de regio Rotterdam-Rijnmond. In nauwe samenwerking met honderden bedrijven in de regio, stemt de school haar onderwijs af op de actuele behoeften van het bedrijfsleven en de snel evoluerende arbeidsmarkt.
+
+Onze missie is helder: wij streven ernaar om beginnende beroepsbeoefenaars en vakmensen op te leiden tot hooggekwalificeerde individuen met uitstekende technische vaardigheden, brede sociale competenties en het vermogen om multidisciplinair samen te werken. Techniek College Rotterdam is een inclusieve school, open voor iedereen, en we streven ernaar om elke student te stimuleren het beste uit zichzelf te halen.
+
+Het directieteam, onder leiding van algemeen directeur Marc Meijer en bijgestaan door adjunct-directeur Onderwijs en Kwaliteit Janine Slootmaekers, en adjunct-directeur Bedrijfsvoering Said el Ouazizi, geeft sturing aan de school met een duidelijke visie op kwalitatief onderwijs en optimale leerervaringen.
+
+Bij Techniek College Rotterdam hechten we waarde aan de stem van onze studenten. Via de Centrale Studentenraad hebben zij inspraak in belangrijke schoolaangelegenheden. Deze raad vertegenwoordigt alle studenten en gaat in gesprek met de directie over verbeteringen op het gebied van lessen en faciliteiten. We geloven in een dynamische leeromgeving waarin iedereen de kans krijgt om actief deel te nemen en bij te dragen aan het succes van onze school.<h3></center>
+
+<!-- Andere HTML-code hierboven -->
+
+<!-- Popup -->
+<div id="overlay" class="overlay" onclick="hidePopup()"></div>
+<div id="popup" class="popup">
+    <p>Donate 2 play</p>
+    <button onclick="hidePopup()">Close</button>
+</div>
+
+<script>
+    function showPopup() {
+        var popup = document.getElementById("popup");
+        var overlay = document.getElementById("overlay");
+
+        popup.style.display = "block";
+        overlay.style.display = "block";
+    }
+
+    function hidePopup() {
+        var popup = document.getElementById("popup");
+        var overlay = document.getElementById("overlay");
+
+        popup.style.display = "none";
+        overlay.style.display = "none";
+    }
+
+    // Voeg de showPopup-functie toe aan het einde van het body-element
+    document.addEventListener("DOMContentLoaded", function() {
+        showPopup();
+    });
+</script>
+
+</body>
+
+
+</body>
+</html>
